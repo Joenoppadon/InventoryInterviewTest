@@ -66,7 +66,7 @@ namespace InventoryTestMvc.Services
         // ==========================================
         public async Task ReceiveProductAsync(ReceiveProductDto dto)
         {
-            // 🌟 ดักข้อผิดพลาด Foreign Key: ตรวจสอบก่อนว่ามีรหัสสินค้านี้จริงในระบบไหม
+            // ดักข้อผิดพลาด Foreign Key: ตรวจสอบก่อนว่ามีรหัสสินค้านี้จริงในระบบไหม
             var productExists = await _context.Products.AnyAsync(p => p.ProductId == dto.ProductId);
             if (!productExists)
             {
@@ -158,7 +158,7 @@ namespace InventoryTestMvc.Services
         // ==========================================
         public async Task DeliverProductAsync(DeliverProductDto dto)
         {
-            // 🌟 ดักข้อผิดพลาด: ตรวจสอบสต็อกปัจจุบันในคลังก่อนว่าพอให้ตัดยอดออกไหม
+            // ดักข้อผิดพลาด: ตรวจสอบสต็อกปัจจุบันในคลังก่อนว่าพอให้ตัดยอดออกไหม
             var inventory = await _context.Inventories.FirstOrDefaultAsync(i => i.ProductId == dto.ProductId);
             if (inventory == null || inventory.Quantity < dto.Quantity)
             {
