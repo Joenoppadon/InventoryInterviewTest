@@ -48,5 +48,5 @@
                                                - ProductId (FK)
                                                - Quantity
  
-Input Flow --> Add Product --> Receive --> Delivery    
+Input Flow --> Add Product --> Receive --> Delivery 
 
