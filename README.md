@@ -14,3 +14,4 @@
     3.Migration db terminal --> 'dotnet ef migrations add migrationname'
     4.Terminal --> 'dotnet ef database update'
     *if error check connection string and check installed require package
+<img width="1176" height="371" alt="Untitled" src="https://github.com/user-attachments/assets/4696edf8-0a1a-43e1-b1d9-04ab2ad68a28" />
