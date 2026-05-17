@@ -1,0 +1,47 @@
+﻿@model InventoryTestMvc.Data.Dto.DeliverProductDto
+
+@{
+    ViewData["Title"] = "ส่งสินค้าออก (Delivery)";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-danger text-white py-3">
+            <h5 class="mb-0">📤 ฟอร์มส่งสินค้าออก & ตัดสต็อก (Delivery)</h5>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Deliver" method="post">
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="DeliveryNumber" class="form-label fw-bold">เลขที่ใบส่งของ (Delivery Number)</label>
+                    <input asp-for="DeliveryNumber" class="form-control" placeholder="เช่น DO-2026-0001" required />
+                    <span asp-validation-for="DeliveryNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CustomerName" class="form-label fw-bold">ชื่อลูกค้า (Customer)</label>
+                    <input asp-for="CustomerName" class="form-control" placeholder="ระบุชื่อลูกค้าหรือชื่อบริษัท" />
+                    <span asp-validation-for="CustomerName" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ProductId" class="form-label fw-bold">รหัสสินค้า (Product ID)</label>
+                    <input asp-for="ProductId" type="number" class="form-control" placeholder="ระบุตัวเลข ID จากหน้าหลัก" required />
+                    <span asp-validation-for="ProductId" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Quantity" class="form-label fw-bold">จำนวนที่ต้องการส่งออก</label>
+                    <input asp-for="Quantity" type="number" min="1" class="form-control" placeholder="0" required />
+                    <span asp-validation-for="Quantity" class="text-danger small fw-bold"></span>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2 mt-4">
+                    <a asp-action="Index" class="btn btn-light border">ยกเลิก</a>
+                    <button type="submit" class="btn btn-danger px-4">📦 บันทึกส่งออก</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

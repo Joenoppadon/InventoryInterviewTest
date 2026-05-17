@@ -1,0 +1,39 @@
+﻿@model InventoryTestMvc.Data.Dto.CreateProductDto
+
+@{
+    ViewData["Title"] = "เพิ่มสินค้าใหม่";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📦 ลงทะเบียนสินค้าใหม่ (Master Product)</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="CreateProduct" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">ชื่อสินค้า</label>
+                    <input asp-for="ProductName" class="form-control" placeholder="เช่น ไอโฟน 15" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">รหัส SKU (ต้องไม่ซ้ำกัน)</label>
+                    <input asp-for="SKU" class="form-control" placeholder="เช่น IP15-128-BLK" required />
+                    <span asp-validation-for="SKU" class="text-danger small fw-bold"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ราคาสินค้าเริ่มต้น</label>
+                    <input asp-for="UnitPrice" type="number" step="0.01" class="form-control" required />
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a asp-action="Index" class="btn btn-secondary me-md-2">ยกเลิก</a>
+                    <button type="submit" class="btn btn-primary">💾 บันทึกสินค้า</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

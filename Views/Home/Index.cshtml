@@ -1,0 +1,74 @@
+﻿@model IEnumerable<InventoryTestMvc.Data.Dto.InventorySummaryDto>
+
+
+@{
+    ViewData["Title"] = "หน้าหลัก - ระบบคลังสินค้าคงเหลือ";
+}
+
+<div class="container mt-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <h2>📊 รายการสินค้าคงเหลือในคลัง</h2>
+        <div class="d-flex flex-wrap gap-2">
+            <a asp-action="CreateProduct" class="btn btn-primary">➕ ลงทะเบียนสินค้าใหม่</a>
+            <a asp-action="Receive" class="btn btn-success">📥 รับสินค้าเข้า (PO)</a>
+            <a asp-action="Deliver" class="btn btn-danger">📤 ส่งสินค้าออก (Delivery)</a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ✨ @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            ⚠️ @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-3">รหัสสินค้า (ID)</th>
+                            <th>ชื่อสินค้า</th>
+                            <th>รหัส SKU</th>
+                            <th class="text-end">จำนวนคงเหลือ</th>
+                            <th class="pe-3">ตำแหน่งจัดเก็บ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">ยังไม่มีข้อมูลสินค้าในคลังขณะนี้</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-3 fw-bold">@item.ProductId</td>
+                                    <td>@item.ProductName</td>
+                                    <td><span class="badge bg-secondary">@item.SKU</span></td>
+                                    <td class="text-end fw-bold @(item.CurrentQuantity <= 5 ? "text-danger" : "text-success")">
+                                        @item.CurrentQuantity.ToString("N0") ชิ้น
+                                    </td>
+                                    <td class="pe-3 text-muted">@item.Location</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

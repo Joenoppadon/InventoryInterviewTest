@@ -1,0 +1,65 @@
+﻿@model IEnumerable<InventoryTestMvc.Data.Dto.ProductListDto>
+
+@{
+    ViewData["Title"] = "ทะเบียนสินค้าทั้งหมด";
+}
+
+<div class="container mt-4">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <h2>📋 ทะเบียนสินค้าทั้งหมด (Master Products)</h2>
+            <p class="text-muted mb-0">ตรวจสอบรหัสสินค้า (Product ID) เพื่อนำไปใช้งานในการรับเข้าและส่งออก</p>
+        </div>
+        <div>
+            <a asp-action="CreateProduct" class="btn btn-primary">➕ ลงทะเบียนสินค้าใหม่</a>
+            <a asp-action="Index" class="btn btn-outline-secondary">🔙 กลับหน้าคลังสินค้า</a>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            ✨ @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="ps-3" style="width: 150px;">รหัสสินค้า (ID)</th>
+                            <th>ชื่อสินค้า</th>
+                            <th>รหัส SKU</th>
+                            <th class="text-end">ราคาเริ่มต้น</th>
+                            <th class="pe-3 text-end">วันที่ลงทะเบียน</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-4 text-muted">ยังไม่มีสินค้าถูกลงทะเบียนในระบบ</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-3"><span class="badge bg-primary px-3 py-2">ID: @item.ProductId</span></td>
+                                    <td class="fw-bold text-secondary">@item.ProductName</td>
+                                    <td><span class="badge bg-light text-dark border">@item.SKU</span></td>
+                                    <td class="text-end fw-bold text-dark">@item.UnitPrice.ToString("N2") บาท</td>
+                                    <td class="pe-3 text-end text-muted small">@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
