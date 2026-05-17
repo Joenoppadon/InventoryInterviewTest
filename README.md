@@ -14,39 +14,3 @@
     3.Migration db terminal --> 'dotnet ef migrations add migrationname'
     4.Terminal --> 'dotnet ef database update'
     *if error check connection string and check installed require package
-    
-## Database ER Diagram ##
-
-[PurchaseOrders]                     [Deliveries]
-   - POID (PK)                          - DeliveryID (PK)
-   - PONumber                           - DeliveryNumber
-        |                                    |
-        | (1)                                | (1)
-        |                                    |
-        +----------------+-------------------+
-                         |
-                         | (M)
-                         v
-               [StockTransactions]
-                - TransID (PK)
-                - RefID (FK to POID / DeliveryID) <--- RefType ('IN'/'OUT')
-                - ProductId (FK) -------------------+
-                - Qty                               |
-                                                    | (M)
-                                                    |
-                                                    v
-                                              [Products] (Master)
-                                               - ProductId (PK)
-                                               - ProductName
-                                               - SKU
-                                                    |
-                                                    | (1)
-                                                    |
-                                                    v
-                                              [Inventories] (Stock Balance)
-                                               - InventoryID (PK)
-                                               - ProductId (FK)
-                                               - Quantity
- 
-Input Flow --> Add Product --> Receive --> Delivery 
-
